@@ -1,4 +1,4 @@
-package com.rezapour.listofpeople.data.models.user
+package com.rezapour.listofpeople.data.network.models.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

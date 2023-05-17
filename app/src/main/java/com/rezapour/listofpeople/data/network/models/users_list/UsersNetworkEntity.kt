@@ -1,10 +1,10 @@
-package com.rezapour.listofpeople.data.models.users_list
+package com.rezapour.listofpeople.data.network.models.users_list
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class UsersNetworkEntity(
-    @SerializedName("customers") val customers: ArrayList<CustomersNetworkEntity>
+    @Expose @SerializedName("customers") val customers: ArrayList<CustomersNetworkEntity>
 )
 
 data class CustomersNetworkEntity(

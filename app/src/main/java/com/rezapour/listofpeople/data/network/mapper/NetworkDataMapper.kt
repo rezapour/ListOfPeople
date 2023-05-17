@@ -1,9 +1,9 @@
-package com.rezapour.listofpeople.data.mapper
+package com.rezapour.listofpeople.data.network.mapper
 
-import com.rezapour.listofpeople.data.models.user.AddressNetworkEntity
-import com.rezapour.listofpeople.data.models.user.UserNetworkEntity
-import com.rezapour.listofpeople.data.models.users_list.CustomersNetworkEntity
-import com.rezapour.listofpeople.data.models.users_list.UsersNetworkEntity
+import com.rezapour.listofpeople.data.network.models.user.AddressNetworkEntity
+import com.rezapour.listofpeople.data.network.models.user.UserNetworkEntity
+import com.rezapour.listofpeople.data.network.models.users_list.CustomersNetworkEntity
+import com.rezapour.listofpeople.data.network.models.users_list.UsersNetworkEntity
 import com.rezapour.listofpeople.models.AddressDomain
 import com.rezapour.listofpeople.models.CustomersDomain
 import com.rezapour.listofpeople.models.UserDomain
