@@ -7,4 +7,6 @@
     <string name="error_default_message">Something went wrong!</string>
     <string name="retry">Retry</string>
     <string name="device_holders">Device Holders</string>
+    <string name="fam">Fam</string>
+    <string name="ban">Ban</string>
 </resources>

@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.rezapour.listofpeople.R
 import com.rezapour.listofpeople.databinding.FragmentUserListBinding
@@ -22,10 +24,9 @@ import kotlinx.coroutines.launch
 class UserListFragment : Fragment() {
 
     private var _binding: FragmentUserListBinding? = null
-
     private val binding get() = _binding!!
-
     private val viewModel: UsersListViewModel by viewModels()
+    private lateinit var adapter: UserListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +42,24 @@ class UserListFragment : Fragment() {
     }
 
     private fun setupFragment() {
-        getData()
+        setupUi()
         subscribeToViewModel()
+        getData()
+    }
+
+    private fun setupUi() {
+        adapter = UserListAdapter(ArrayList())
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val dividerItemDecoration =
+            DividerItemDecoration(binding.usersRecyclerView.context, layoutManager.orientation)
+        with(binding) {
+            usersRecyclerView.adapter = adapter
+            usersRecyclerView.layoutManager = layoutManager
+            usersRecyclerView.addItemDecoration(dividerItemDecoration)
+
+
+            swiperLayout.setOnRefreshListener { getData() }
+        }
     }
 
     private fun subscribeToViewModel() {
@@ -72,6 +89,7 @@ class UserListFragment : Fragment() {
 
     private fun onSuccess(data: List<CustomersDomain>) {
         loading(isLoading = false)
+        adapter.addItem(data)
     }
 
     private fun onError(messageId: Int) {
@@ -91,14 +109,14 @@ class UserListFragment : Fragment() {
     }
 
     private fun showSnackBar(messageId: Int, retry: () -> Unit) {
-//        Snackbar.make(binding.coordinatorLayout, messageId, Snackbar.LENGTH_INDEFINITE)
-//            .setAction(getString(R.string.retry)) {
-//                retry()
-//            }
-//            .show();
+        Snackbar.make(binding.coordinatorLayout, messageId, Snackbar.LENGTH_INDEFINITE)
+            .setAction(getString(R.string.retry)) {
+                retry()
+            }
+            .show();
     }
 
     private fun showSwiper(isRefreshing: Boolean) {
-//        binding.swiperLayout.isRefreshing = isRefreshing
+        binding.swiperLayout.isRefreshing = isRefreshing
     }
 }

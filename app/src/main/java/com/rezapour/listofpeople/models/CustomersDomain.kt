@@ -6,7 +6,7 @@ data class CustomersDomain(
     val lastName: String,
     val gender: String,
     val phoneNumber: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val stickers: ArrayList<String>
 )
 
