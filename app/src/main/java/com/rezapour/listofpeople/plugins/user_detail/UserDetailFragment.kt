@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -27,6 +29,7 @@ class UserDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: UserDetailViewModel by viewModels()
     private val args: UserDetailFragmentArgs by navArgs()
+    private lateinit var navController: NavController
 
 
     override fun onCreateView(
@@ -39,6 +42,7 @@ class UserDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         setupFragment()
     }
 
@@ -49,8 +53,15 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun setupUi() {
-        binding.userDetailLswiper.setOnRefreshListener {
-            loadData()
+        with(binding) {
+            userDetailLswiper.setOnRefreshListener {
+                loadData()
+            }
+
+            userDetailBackButton.setOnClickListener {
+                navController.popBackStack()
+            }
+
         }
     }
 
