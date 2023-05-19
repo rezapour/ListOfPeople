@@ -1,8 +1,10 @@
 package com.rezapour.listofpeople.models
 
+import android.accessibilityservice.GestureDescription.StrokeDescription
+
 data class UserDomain(
     val id: Int,
-    val imageUrl: String,
+    val imageUrl: String?,
     val currentLatitude: Double,
     val currentLongitude: Double,
     val firstName: String,
@@ -14,5 +16,12 @@ data class UserDomain(
 )
 
 data class AddressDomain(
-    val street: String, val city: String, val state: String, val zip: String, val country: String
-)
+    val street: String,
+    val city: String,
+    val state: String,
+    val zip: String,
+    val country: String
+) {
+    val address: String
+        get() = "$street, $zip $city"
+}

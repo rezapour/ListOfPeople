@@ -9,4 +9,7 @@
     <string name="device_holders">Device Holders</string>
     <string name="fam">Fam</string>
     <string name="ban">Ban</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="address">ADDRESS</string>
 </resources>

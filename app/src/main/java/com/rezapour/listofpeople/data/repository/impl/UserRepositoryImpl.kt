@@ -4,8 +4,10 @@ import com.rezapour.listofpeople.data.network.NetworkDataProvider
 import com.rezapour.listofpeople.data.repository.UserRepository
 import com.rezapour.listofpeople.models.CustomersDomain
 import com.rezapour.listofpeople.models.UserDomain
+import javax.inject.Inject
 
-class UserRepositoryImpl(private val dataProvider: NetworkDataProvider) : UserRepository {
+class UserRepositoryImpl @Inject constructor(private val dataProvider: NetworkDataProvider) :
+    UserRepository {
 
     override suspend fun getCustomers(): List<CustomersDomain> = dataProvider.getCustomers()
 

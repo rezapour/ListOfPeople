@@ -1,4 +1,4 @@
-package com.rezapour.listofpeople.plugins.usersList
+package com.rezapour.listofpeople.plugins.users_list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -27,6 +29,7 @@ class UserListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: UsersListViewModel by viewModels()
     private lateinit var adapter: UserListAdapter
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,7 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         setupFragment()
     }
 
@@ -48,7 +52,9 @@ class UserListFragment : Fragment() {
     }
 
     private fun setupUi() {
-        adapter = UserListAdapter(ArrayList())
+        adapter = UserListAdapter(ArrayList()) { userId ->
+            gotoDetailFragment(userId)
+        }
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration =
             DividerItemDecoration(binding.usersRecyclerView.context, layoutManager.orientation)
@@ -119,4 +125,13 @@ class UserListFragment : Fragment() {
     private fun showSwiper(isRefreshing: Boolean) {
         binding.swiperLayout.isRefreshing = isRefreshing
     }
+
+    private fun gotoDetailFragment(userId: Int) {
+        navController.navigate(
+            UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(
+                userId
+            )
+        )
+    }
 }
+

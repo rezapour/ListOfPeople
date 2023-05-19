@@ -1,4 +1,4 @@
-package com.rezapour.listofpeople.plugins.usersList
+package com.rezapour.listofpeople.plugins.users_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,13 +7,11 @@ import com.rezapour.listofpeople.data.repository.UserRepository
 import com.rezapour.listofpeople.models.CustomersDomain
 import com.rezapour.listofpeople.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class UsersListViewModel @Inject constructor(
