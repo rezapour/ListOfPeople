@@ -12,6 +12,7 @@
         android:layout_height="65dp"
         android:layout_margin="8dp"
         android:src="@drawable/photo"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +71,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik"
         android:text="+49 1511 97455411"
-        android:textColor="@color/phoneColor"
+        android:textColor="@color/generalColor"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/userListRowName"
         app:layout_constraintTop_toBottomOf="@id/userListRowName" />

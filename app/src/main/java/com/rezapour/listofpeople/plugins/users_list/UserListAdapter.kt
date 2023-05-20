@@ -1,14 +1,18 @@
 package com.rezapour.listofpeople.plugins.users_list
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.avatarfirst.avatargenlib.AvatarConstants
+import com.avatarfirst.avatargenlib.AvatarGenerator
 import com.bumptech.glide.Glide
 import com.rezapour.listofpeople.R
 import com.rezapour.listofpeople.databinding.RowUserListBinding
 import com.rezapour.listofpeople.models.CustomersDomain
+import com.rezapour.listofpeople.util.ImageUtil
 
 class UserListAdapter(
     val listItem: ArrayList<CustomersDomain>,
@@ -36,13 +40,14 @@ class UserListAdapter(
         ViewHolder(binding.root) {
         fun onBind(customer: CustomersDomain) {
             with(binding) {
-                userListRowName.text = "${customer.firstName} ${customer.lastName}"
+                userListRowName.text = customer.fullName
                 userListRowGender.text = customer.gender
                 userListRowPhone.text = "+${customer.phoneNumber.replace("-", " ")}"
 
+
                 Glide.with(itemView.context)
                     .load(customer.imageUrl)
-                    .error(R.drawable.baseline_error_24)
+                    .error(ImageUtil.getAvatar(binding.root.context, customer.firstName))
                     .circleCrop()
                     .into(userListRowImage)
                 binding.userListRowLayout.setOnClickListener { onClick(customer.id) }

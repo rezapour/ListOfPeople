@@ -15,11 +15,14 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.rezapour.listofpeople.R
+import com.rezapour.listofpeople.assets.AppConstants
 import com.rezapour.listofpeople.databinding.FragmentUserDetailBinding
 import com.rezapour.listofpeople.models.UserDomain
+import com.rezapour.listofpeople.util.ImageUtil
 import com.rezapour.listofpeople.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.MessageFormat
 
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
@@ -88,10 +91,24 @@ class UserDetailFragment : Fragment() {
         loading(false)
         with(binding) {
             Glide.with(requireContext())
-                .load(user.imageUrl)
+                .load(
+                    MessageFormat.format(
+                        AppConstants.STATIC_MAP_URL,
+                        user.currentLongitude,
+                        user.currentLatitude
+                    )
+                )
                 .error(R.drawable.baseline_error_24)
                 .circleCrop()
+                .into(userDetailLocation)
+
+
+            Glide.with(requireContext())
+                .load(user.imageUrl)
+                .error(ImageUtil.getAvatar(requireContext(), user.firstName))
+                .circleCrop()
                 .into(userDetailImage)
+
 
             userDetailName.text = "${user.firstName} ${user.lastName}"
             userDetailGender.text = user.gender

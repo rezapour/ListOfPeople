@@ -4,11 +4,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="TextBlack">#0E0E2C</color>
     <color name="GenderColor">#8C8CA1</color>
-    <color name="phoneColor">#4A4A68</color>
+    <color name="generalColor">#4A4A68</color>
     <color name="famColor">#8C8CA1</color>
     <color name="famBackGround">#ECF1F4</color>
     <color name="banColor">#F4587B</color>
     <color name="banBackGround">#FCDDE4</color>
     <color name="border">#CED4DA</color>
+    <color name="avatarBackGroundColor">#F4F5F8</color>
 
 </resources>

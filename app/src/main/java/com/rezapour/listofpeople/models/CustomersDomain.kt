@@ -8,5 +8,7 @@ data class CustomersDomain(
     val phoneNumber: String,
     val imageUrl: String?,
     val stickers: ArrayList<String>
-)
+) {
+    val fullName get() = "$firstName $lastName"
+}
 
