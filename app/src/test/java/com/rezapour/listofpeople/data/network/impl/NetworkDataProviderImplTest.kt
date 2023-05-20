@@ -9,6 +9,7 @@ import com.rezapour.listofpeople.data.network.api_fake.RetrofitBuilderMock
 import com.rezapour.listofpeople.data.network.mapper.NetworkDataMapper
 import com.rezapour.listofpeople.util.MainCoroutineRule
 import com.rezapour.listofpeople.util.SampleDataFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -23,6 +24,7 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 
 
+@ExperimentalCoroutinesApi
 class NetworkDataProviderImplTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
