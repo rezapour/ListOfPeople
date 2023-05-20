@@ -1,10 +1,9 @@
-package com.rezapour.listofpeople.plugins.user_list
+package com.rezapour.listofpeople.plugins.user_detail
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import com.rezapour.listofpeople.data.exception.DataProviderException
 import com.rezapour.listofpeople.data.repository.UserRepository
-import com.rezapour.listofpeople.plugins.users_list.UsersListViewModel
 import com.rezapour.listofpeople.util.MainCoroutineRule
 import com.rezapour.listofpeople.util.SampleDataFactory
 import com.rezapour.listofpeople.util.UiState
@@ -18,50 +17,50 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class UsersListViewModelTest {
+class UserDetailViewModelTest {
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: UsersListViewModel
+    private lateinit var viewModel: UserDetailViewModel
     private lateinit var repository: UserRepository
 
     @Before
     fun setUp() {
         repository = mock()
-        viewModel = UsersListViewModel(repository)
+        viewModel = UserDetailViewModel(repository)
     }
 
     @Test
     fun `load data return house list when response is successful`() = runTest {
         runBlocking() {
-            whenever(repository.getCustomers()).thenReturn(SampleDataFactory.getCustomers())
+            whenever(repository.getUser(1)).thenReturn(SampleDataFactory.getUserDetail())
         }
-        viewModel.loadData()
+        viewModel.loadData(1)
         viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
+            Truth.assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
         }
     }
 
     @Test
     fun `load data return Error when response is DataProviderException`() = runTest {
         runBlocking() {
-            whenever(repository.getCustomers()).thenThrow(DataProviderException::class.java)
+            whenever(repository.getUser(1)).thenThrow(DataProviderException::class.java)
         }
-        viewModel.loadData()
+        viewModel.loadData(1)
         viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
+            Truth.assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
         }
     }
 
     @Test
     fun `load data return Error when response is Exception`() = runTest {
         runBlocking() {
-            whenever(repository.getCustomers()).thenThrow(RuntimeException::class.java)
+            whenever(repository.getUser(1)).thenThrow(RuntimeException::class.java)
         }
-        viewModel.loadData()
+        viewModel.loadData(1)
         viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
+            Truth.assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
         }
     }
 }
