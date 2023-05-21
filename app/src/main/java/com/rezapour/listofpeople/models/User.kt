@@ -11,7 +11,9 @@ data class User(
     val gender: String,
     val phoneNumber: String,
     val address: Address
-)
+) {
+    val fullName get() = "$firstName $lastName"
+}
 
 data class Address(
     val street: String,

@@ -106,7 +106,7 @@ class UserDetailFragment : Fragment() {
                 imageView = userDetailImage
             )
 
-            userDetailName.text = "${user.firstName} ${user.lastName}"
+            userDetailName.text = user.fullName
             userDetailGender.text = user.gender
             userDetailPhone.text = "+${user.phoneNumber.replace("-", " ")}"
             userDetailAddress.text = user.address.address
