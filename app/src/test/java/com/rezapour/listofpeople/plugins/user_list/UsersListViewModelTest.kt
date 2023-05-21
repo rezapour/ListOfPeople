@@ -9,7 +9,9 @@ import com.rezapour.listofpeople.util.MainCoroutineRule
 import com.rezapour.listofpeople.util.SampleDataFactory
 import com.rezapour.listofpeople.util.UiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -38,8 +40,11 @@ class UsersListViewModelTest {
             whenever(repository.getCustomers()).thenReturn(SampleDataFactory.getCustomers())
         }
         viewModel.loadData()
-        viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
+
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
+            }
         }
     }
 
@@ -49,8 +54,10 @@ class UsersListViewModelTest {
             whenever(repository.getCustomers()).thenThrow(DataProviderException::class.java)
         }
         viewModel.loadData()
-        viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
+            }
         }
     }
 
@@ -60,8 +67,10 @@ class UsersListViewModelTest {
             whenever(repository.getCustomers()).thenThrow(RuntimeException::class.java)
         }
         viewModel.loadData()
-        viewModel.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
+            }
         }
     }
 }

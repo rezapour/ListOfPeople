@@ -8,7 +8,9 @@ import com.rezapour.listofpeople.util.MainCoroutineRule
 import com.rezapour.listofpeople.util.SampleDataFactory
 import com.rezapour.listofpeople.util.UiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -37,8 +39,10 @@ class UserDetailViewModelTest {
             whenever(repository.getUser(1)).thenReturn(SampleDataFactory.getUserDetail())
         }
         viewModel.loadData(1)
-        viewModel.uiState.test {
-            Truth.assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                Truth.assertThat(awaitItem()).isInstanceOf(UiState.Success::class.java)
+            }
         }
     }
 
@@ -48,8 +52,10 @@ class UserDetailViewModelTest {
             whenever(repository.getUser(1)).thenThrow(DataProviderException::class.java)
         }
         viewModel.loadData(1)
-        viewModel.uiState.test {
-            Truth.assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                Truth.assertThat(awaitItem()).isInstanceOf(UiState.Error::class.java)
+            }
         }
     }
 
@@ -59,8 +65,10 @@ class UserDetailViewModelTest {
             whenever(repository.getUser(1)).thenThrow(RuntimeException::class.java)
         }
         viewModel.loadData(1)
-        viewModel.uiState.test {
-            Truth.assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
+            viewModel.uiState.test {
+                Truth.assertThat(awaitItem()).isInstanceOf(UiState.DefaultError::class.java)
+            }
         }
     }
 }
