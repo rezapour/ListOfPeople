@@ -58,6 +58,7 @@ class UserListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val dividerItemDecoration =
             DividerItemDecoration(binding.usersRecyclerView.context, layoutManager.orientation)
+        dividerItemDecoration.setDrawable(context?.getDrawable(R.drawable.item_decoration)!!)
         with(binding) {
             usersRecyclerView.adapter = adapter
             usersRecyclerView.layoutManager = layoutManager

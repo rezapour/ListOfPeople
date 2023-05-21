@@ -11,5 +11,6 @@
     <color name="banBackGround">#FCDDE4</color>
     <color name="border">#CED4DA</color>
     <color name="avatarBackGroundColor">#F4F5F8</color>
+    <color name="dividerColor">#CED4DA</color>
 
 </resources>

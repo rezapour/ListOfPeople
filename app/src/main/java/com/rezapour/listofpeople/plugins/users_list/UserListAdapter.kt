@@ -2,6 +2,7 @@ package com.rezapour.listofpeople.plugins.users_list
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +53,8 @@ class UserListAdapter(
                     .into(userListRowImage)
                 binding.userListRowLayout.setOnClickListener { onClick(customer.id) }
             }
+            binding.userListRowLabelFam.visibility = GONE
+            binding.userListRowLabelBan.visibility = GONE
             customer.stickers.forEach { stiker ->
                 when (stiker) {
                     "Fam" -> binding.userListRowLabelFam.visibility = VISIBLE
