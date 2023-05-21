@@ -1,8 +1,6 @@
 package com.rezapour.listofpeople.models
 
-import android.accessibilityservice.GestureDescription.StrokeDescription
-
-data class UserDomain(
+data class User(
     val id: Int,
     val imageUrl: String?,
     val currentLatitude: Double,
@@ -12,10 +10,10 @@ data class UserDomain(
     val stickers: ArrayList<String>,
     val gender: String,
     val phoneNumber: String,
-    val address: AddressDomain
+    val address: Address
 )
 
-data class AddressDomain(
+data class Address(
     val street: String,
     val city: String,
     val state: String,

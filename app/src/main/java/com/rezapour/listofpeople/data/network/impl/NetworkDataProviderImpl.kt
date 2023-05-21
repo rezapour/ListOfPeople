@@ -5,8 +5,8 @@ import com.rezapour.listofpeople.data.network.NetworkDataProvider
 import com.rezapour.listofpeople.data.network.exception.ExceptionMapper
 import com.rezapour.listofpeople.data.network.mapper.NetworkDataMapper
 import com.rezapour.listofpeople.data.network.retrofit.ApiService
-import com.rezapour.listofpeople.models.CustomersDomain
-import com.rezapour.listofpeople.models.UserDomain
+import com.rezapour.listofpeople.models.Customers
+import com.rezapour.listofpeople.models.User
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class NetworkDataProviderImpl @Inject constructor(
     private val mapper: NetworkDataMapper
 ) :
     NetworkDataProvider {
-    override suspend fun getCustomers(): List<CustomersDomain> {
+    override suspend fun getCustomers(): List<Customers> {
         try {
             val response = apiService.getUsers()
             if (response.isSuccessful)
@@ -32,7 +32,7 @@ class NetworkDataProviderImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUser(userId: Int): UserDomain {
+    override suspend fun getUser(userId: Int): User {
         try {
             val response = apiService.getUser(userId)
             if (response.isSuccessful)

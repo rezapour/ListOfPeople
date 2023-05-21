@@ -1,6 +1,6 @@
 package com.rezapour.listofpeople.models
 
-data class CustomersDomain(
+data class Customers(
     val id: Int,
     val firstName: String,
     val lastName: String,

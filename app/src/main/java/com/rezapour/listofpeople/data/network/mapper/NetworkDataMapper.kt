@@ -3,16 +3,16 @@ package com.rezapour.listofpeople.data.network.mapper
 import com.rezapour.listofpeople.data.network.models.user.AddressNetworkEntity
 import com.rezapour.listofpeople.data.network.models.user.UserNetworkEntity
 import com.rezapour.listofpeople.data.network.models.users_list.CustomersNetworkEntity
-import com.rezapour.listofpeople.models.AddressDomain
-import com.rezapour.listofpeople.models.CustomersDomain
-import com.rezapour.listofpeople.models.UserDomain
+import com.rezapour.listofpeople.models.Address
+import com.rezapour.listofpeople.models.Customers
+import com.rezapour.listofpeople.models.User
 import javax.inject.Inject
 
 class NetworkDataMapper @Inject constructor() {
 
-    private fun customersNetworkEntityToCustomerDomain(customer: CustomersNetworkEntity): CustomersDomain =
+    private fun customersNetworkEntityToCustomerDomain(customer: CustomersNetworkEntity): Customers =
         with(customer) {
-            CustomersDomain(
+            Customers(
                 id = id,
                 firstName = firstName,
                 lastName = lastName,
@@ -23,12 +23,12 @@ class NetworkDataMapper @Inject constructor() {
             )
         }
 
-    fun usersNetworkEntityToListOfCustomerDomain(customers: List<CustomersNetworkEntity>): List<CustomersDomain> =
+    fun usersNetworkEntityToListOfCustomerDomain(customers: List<CustomersNetworkEntity>): List<Customers> =
         customers.map { customer -> customersNetworkEntityToCustomerDomain(customer) }
 
-    fun userNetworkEntityToUserDomain(user: UserNetworkEntity): UserDomain =
+    fun userNetworkEntityToUserDomain(user: UserNetworkEntity): User =
         with(user) {
-            UserDomain(
+            User(
                 id = id,
                 imageUrl = imageUrl,
                 currentLatitude = currentLatitude,
@@ -42,9 +42,9 @@ class NetworkDataMapper @Inject constructor() {
             )
         }
 
-    private fun addressNetworkEntityToAddressDomain(address: AddressNetworkEntity): AddressDomain =
+    private fun addressNetworkEntityToAddressDomain(address: AddressNetworkEntity): Address =
         with(address) {
-            AddressDomain(
+            Address(
                 street = street,
                 city = city,
                 state = state,

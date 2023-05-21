@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rezapour.listofpeople.R
 import com.rezapour.listofpeople.assets.AppConstants
 import com.rezapour.listofpeople.databinding.FragmentUserDetailBinding
-import com.rezapour.listofpeople.models.UserDomain
+import com.rezapour.listofpeople.models.User
 import com.rezapour.listofpeople.util.ImageUtil
 import com.rezapour.listofpeople.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,13 +27,11 @@ import java.text.MessageFormat
 @AndroidEntryPoint
 class UserDetailFragment : Fragment() {
 
-
     private var _binding: FragmentUserDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: UserDetailViewModel by viewModels()
     private val args: UserDetailFragmentArgs by navArgs()
     private lateinit var navController: NavController
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,33 +85,31 @@ class UserDetailFragment : Fragment() {
         }
     }
 
-    private fun onSuccess(user: UserDomain) {
+    private fun onSuccess(user: User) {
         loading(false)
         with(binding) {
-            Glide.with(requireContext())
-                .load(
-                    MessageFormat.format(
-                        AppConstants.STATIC_MAP_URL,
-                        user.currentLongitude,
-                        user.currentLatitude
-                    )
-                )
-                .error(R.drawable.baseline_error_24)
-                .circleCrop()
-                .into(userDetailLocation)
+            ImageUtil.loadImage(
+                context = requireContext(),
+                url = MessageFormat.format(
+                    AppConstants.STATIC_MAP_URL,
+                    user.currentLongitude,
+                    user.currentLatitude
+                ),
+                error = requireContext().getDrawable(R.drawable.baseline_error_24)!!,
+                imageView = userDetailLocation
+            )
 
-
-            Glide.with(requireContext())
-                .load(user.imageUrl)
-                .error(ImageUtil.getAvatar(requireContext(), user.firstName))
-                .circleCrop()
-                .into(userDetailImage)
-
+            ImageUtil.loadImage(
+                context = requireContext(),
+                url = user.imageUrl,
+                error = ImageUtil.getAvatar(binding.root.context, user.firstName),
+                imageView = userDetailImage
+            )
 
             userDetailName.text = "${user.firstName} ${user.lastName}"
             userDetailGender.text = user.gender
             userDetailPhone.text = "+${user.phoneNumber.replace("-", " ")}"
-            UserDetailAddress.text = user.address.address
+            userDetailAddress.text = user.address.address
         }
 
         user.stickers.forEach { sticker ->

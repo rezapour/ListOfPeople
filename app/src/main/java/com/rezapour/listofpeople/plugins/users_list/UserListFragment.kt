@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.rezapour.listofpeople.R
 import com.rezapour.listofpeople.databinding.FragmentUserListBinding
-import com.rezapour.listofpeople.models.CustomersDomain
+import com.rezapour.listofpeople.models.Customers
 import com.rezapour.listofpeople.util.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -94,9 +94,9 @@ class UserListFragment : Fragment() {
         viewModel.loadData()
     }
 
-    private fun onSuccess(data: List<CustomersDomain>) {
+    private fun onSuccess(data: List<Customers>) {
         loading(isLoading = false)
-        adapter.addItem(data)
+        adapter.addItems(data)
     }
 
     private fun onError(messageId: Int) {

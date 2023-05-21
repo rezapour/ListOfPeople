@@ -4,22 +4,22 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class UserNetworkEntity(
-    @Expose @SerializedName("id") val id: Int,
-    @Expose @SerializedName("imageUrl") val imageUrl: String,
-    @Expose @SerializedName("currentLatitude") val currentLatitude: Double,
-    @Expose @SerializedName("currentLongitude") val currentLongitude: Double,
-    @Expose @SerializedName("firstName") val firstName: String,
-    @Expose @SerializedName("lastName") val lastName: String,
-    @Expose @SerializedName("stickers") val stickers: ArrayList<String>,
-    @Expose @SerializedName("gender") val gender: String,
-    @Expose @SerializedName("phoneNumber") val phoneNumber: String,
-    @Expose @SerializedName("address") val address: AddressNetworkEntity
+    @Expose val id: Int,
+    @Expose val imageUrl: String,
+    @Expose val currentLatitude: Double,
+    @Expose val currentLongitude: Double,
+    @Expose val firstName: String,
+    @Expose val lastName: String,
+    @Expose val stickers: ArrayList<String>,
+    @Expose val gender: String,
+    @Expose val phoneNumber: String,
+    @Expose val address: AddressNetworkEntity
 )
 
 data class AddressNetworkEntity(
-    @Expose @SerializedName("street") val street: String,
-    @Expose @SerializedName("city") val city: String,
-    @Expose @SerializedName("state") val state: String,
-    @Expose @SerializedName("zip") val zip: String,
-    @Expose @SerializedName("country") val country: String
+    @Expose val street: String,
+    @Expose val city: String,
+    @Expose val state: String,
+    @Expose val zip: String,
+    @Expose val country: String
 )

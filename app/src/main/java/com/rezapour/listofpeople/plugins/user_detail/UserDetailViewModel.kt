@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rezapour.listofpeople.data.exception.DataProviderException
 import com.rezapour.listofpeople.data.repository.UserRepository
-import com.rezapour.listofpeople.models.UserDomain
+import com.rezapour.listofpeople.models.User
 import com.rezapour.listofpeople.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,9 +18,9 @@ class UserDetailViewModel @Inject constructor(
     private val usersRepository: UserRepository
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState<UserDomain>> = MutableStateFlow(UiState.Loading)
+    private val _uiState: MutableStateFlow<UiState<User>> = MutableStateFlow(UiState.Loading)
 
-    val uiState: StateFlow<UiState<UserDomain>> = _uiState
+    val uiState: StateFlow<UiState<User>> = _uiState
 
     fun loadData(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
